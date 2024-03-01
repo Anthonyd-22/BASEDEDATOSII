@@ -1,0 +1,744 @@
+----------------------------------------------------------------------------------------------------------------
+Parte I
+Autenticacion:
+id primary key
+user_name text
+password text
+token int
+user_agent text
+
+usuario:
+id primary key
+name text
+last_name text
+user_name text
+token int
+password text
+city text
+gender text
+civil_status text
+enterprise text
+direction text
+type text
+
+tipos prueba:
+reference text primary key
+name text
+description text
+date_entry date
+status boolean
+
+pago:
+id primary key
+company_name text
+name text
+surname text
+vat_number int not null
+billing address text not null
+city text not null
+postal_code int
+country text
+type_card text not null
+card number int not null
+experation_Date date not null
+security code int not null
+
+
+-- creacion de la base de datos
+-- CREATE DATABASE Pixel_S360;
+-- USE Pixel_S360;
+
+-- creacion de la tabla users
+-- CREATE TABLE users (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+--     first_name VARCHAR(50) NOT NULL,
+--     last_name VARCHAR(50) NOT NULL,
+--     user_name VARCHAR(50) NOT NULL,
+--     token VARCHAR(50) NOT NULL,
+--     pwd VARCHAR(50) NOT NULL,
+--     city VARCHAR(50) NOT NULL,
+--     gender VARCHAR(50) NOT NULL,
+--     civil_status VARCHAR(50) NOT NULL,
+--     type_enterprise VARCHAR(50) NOT NULL,
+--     direction VARCHAR(50) NOT NULL,
+--     type_user VARCHAR(50)  NOT NULL
+-- );
+
+-- creacion de la tabla authentication
+-- CREATE TABLE authentication(
+-- id_user INT AUTO_INCREMENT PRIMARY KEY,
+-- id INT NOT NULL,
+--     FOREIGN KEY (id) REFERENCES users(id)
+-- );
+
+-- creacion de la tabla type_test
+-- CREATE TABLE type_test (
+-- rfcs INT PRIMARY KEY,
+-- name_test VARCHAR(50)  NOT NULL,
+-- descriptions VARCHAR(120),
+-- date_entry DATE NOT NULL,
+-- status_test BOOLEAN NOT NULL
+-- );
+
+-- creacion de la tabla payment
+-- CREATE TABLE payment(
+-- id INT PRIMARY KEY,
+-- company_name VARCHAR(50),
+-- first_name VARCHAR(50),
+-- surname VARCHAR(50),
+-- vat_number INT NOT NULL,
+-- billing_address VARCHAR(120) NOT NULL,
+-- city VARCHAR(120)  NOT NULL,
+-- postal_code INT,
+-- country VARCHAR(50)  NOT NULL,
+-- type_card VARCHAR(50)  NOT NULL,
+-- card INT NOT NULL,
+-- experation_date DATE NOT NULL,
+-- security_code INT NOT NULL
+-- );
+
+-- Se insertan 10 registros a la tabla users
+INSERT INTO users (first_name, last_name, user_name, token, pwd, city, gender, civil_status, type_enterprise, direction, type_user)
+VALUES
+('John', 'Doe', 'john.doe', 'token123', 'password123', 'New York', 'Male', 'Single', 'private', '123 Main St', 'Customer'),
+('Jane', 'Smith', 'jane.smith', 'token456', 'password456', 'Los Angeles', 'Female', 'Married', 'public', '456 Oak St', 'Customer'),
+('Bob', 'Johnson', 'bob.johnson', 'token789', 'password789', 'Chicago', 'Male', 'Divorced', 'public', '789 Pine St', 'Customer'),
+('Alice', 'Williams', 'alice.williams', 'token101', 'password101', 'San Francisco', 'Female', 'Single', 'private', '101 Market St', 'Customer'),
+('Michael', 'Brown', 'michael.brown', 'token202', 'password202', 'Seattle', 'Male', 'Married', 'public', '202 Broad St', 'Execute'),
+('Eva', 'Garcia', 'eva.garcia', 'token303', 'password303', 'Miami', 'Female', 'Divorced', 'public', '303 Ocean Ave', 'Manager'),
+('Chris', 'Taylor', 'chris.taylor', 'token404', 'password404', 'Austin', 'Male', 'Single', 'private', '404 Tech St', 'Administrator'),
+('Sophia', 'Lee', 'sophia.lee', 'token505', 'password505', 'Denver', 'Female', 'Married', 'public', '505 Data Blvd', 'Customer'),
+('David', 'Martinez', 'david.martinez', 'token606', 'password606', 'Phoenix', 'Male', 'Divorced', 'private', '606 Quantum St', 'Administrator'),
+('Olivia', 'Chen', 'olivia.chen', 'token707', 'password707', 'Atlanta', 'Female', 'Single', 'public', '707 Future Ave', 'Customer');
+
+
+-- Se insertan 10 registros a la tabla type_test
+-- INSERT INTO type_test (rfcs, name_test, descriptions, date_entry, status_test)
+-- VALUES
+-- (101, 'Acknowledgment', 'This process focuses on obtaining data without affecting the platform', '2024-02-29', true),
+-- (102, 'Vulnerability analysis', 'This analysis informs the planning and execution of specific actions to strengthen platform security', '2024-02-28', false),
+-- (103, 'Exploitation', 'Controlled attacks are carried out to take advantage of security weaknesses', '2024-03-01', true),
+-- (104, 'Privilege escalation or post exploitation', 'The objective is to simulate the progress of a real attacker after gaining initial access', '2024-03-02', false)
+
+-- Se insertan 10 registros a la tabla payment
+-- INSERT INTO payment (id, company_name, first_name, surname, vat_number, billing_address, city, postal_code, country, type_card, card, experation_date, security_code)
+-- VALUES
+-- (1, 'Tech Solutions', 'John', 'Doe', 123456789, '123 Main St', 'New York', 10001, 'USA', 'Visa', 1234567890123456, '2025-12-31', 123),
+-- (2, 'Innovative Innovations', 'Jane', 'Smith', 987654321, '456 Oak St', 'Los Angeles', 90001, 'USA', 'MasterCard', 9876543210987654, '2025-11-30', 456),
+-- (3, 'Data Systems', 'Bob', 'Johnson', 456789012, '789 Pine St', 'Chicago', 60601, 'USA', 'American Express', 4567890123456789, '2025-10-31', 789),
+-- (4, 'Tech Innovators', 'Alice', 'Williams', 789012345, '101 Market St', 'San Francisco', 94105, 'USA', 'Visa', 7890123456789012, '2025-09-30', 101),
+-- (5, 'Cloud Solutions', 'Michael', 'Brown', 234567890, '202 Broad St', 'Seattle', 98101, 'USA', 'MasterCard', 2345678901234567, '2025-08-31', 202),
+-- (6, 'Digital Services', 'Eva', 'Garcia', 890123456, '303 Ocean Ave', 'Miami', 33101, 'USA', 'American Express', 8901234567890123, '2025-07-31', 303),
+-- (7, 'Innovation Hub', 'Chris', 'Taylor', 567890123, '404 Tech St', 'Austin', 78701, 'USA', 'Visa', 5678901234567890, '2025-06-30', 404),
+-- (8, 'Smart Systems', 'Sophia', 'Lee', 234567890, '505 Data Blvd', 'Denver', 80202, 'USA', 'MasterCard', 2345678901234567, '2025-05-31', 505),
+-- (9, 'Quantum Technologies', 'David', 'Martinez', 678901234, '606 Quantum St', 'Phoenix', 85001, 'USA', 'American Express', 6789012345678901, '2025-04-30', 606),
+-- (10, 'Future Solutions', 'Olivia', 'Chen', 345678901, '707 Future Ave', 'Atlanta', 30301, 'USA', 'Visa', 3456789012345678, '2025-03-31', 707);
+
+-- Se modifico el tipo de variable para el campo card porque los datos para el tamaño de la tarjeta eran muy grandes
+-- ALTER TABLE payment MODIFY card BIGINT NOT NULL;
+
+-- SELECT * FROM users
+
+
+-----------------------------------------------------------------------------------------------------------------
+Parte II
+Size:
+	size_id
+	size_code
+	ranking
+	size_type
+	size_status
+	size_quantity
+
+Product:
+	product_id
+	product_code
+	product_name
+	aditional_information
+	product_price
+	product_status
+	product_quantity
+
+Color:
+	color_id
+	color_code
+	color_name
+	color_type
+	color_description
+	color_quantity
+	color_status
+
+Category:
+	category_id
+	main_category
+	category_name
+	aditional_information
+
+
+
+// Creación de la base de datos
+mysql> CREATE DATABASE Inventory_Management;
+
+// Acceso a la base de datos recien creada
+mysql> Use Inventory_Management;
+
+
+// Creacion de la tabla Tamaño
+mysql> CREATE TABLE Size(
+    -> size_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> size_code INT NOT NULL,
+    -> ranking VARCHAR(50) NOT NULL,
+    -> size_type VARCHAR(50) NOT NULL,
+    -> size_status BOOL NOT NULL,
+    -> size_quantity INT NOT NULL)
+    -> ;
+Query OK, 0 rows affected (0.09 sec)
+
+
+// Verificacion de la creacion de la tabla
+mysql> SHOW TABLES;
++--------------------------------+
+| Tables_in_Inventory_Management |
++--------------------------------+
+| Size                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+// Creacion de la tabla Color
+mysql>
+CREATE TABLE Color( color_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> color_code INT NOT NULL,
+    -> color_name VARCHAR(50) NOT NULL,
+    -> color_type VARCHAR(50) NOT NULL,
+    -> color_description VARCHAR(100) NOT NULL,
+    -> color_quantity INT NOT NULL,
+    -> color_status BOOL NOT NULL);
+
+// Creacion de la tabla Categorias
+
+mysql> CREATE TABLE Category(
+    -> category_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> main_category VARCHAR(50) NOT NULL,
+    -> category_name VARCHAR(50) NOT NULL,
+    -> aditional_information VARCHAR(100) NOT NULL,
+    -> category_status BOOL);
+Query OK, 0 rows affected (0.07 sec)
+
+// Creacion de la tabla Producto
+mysql> CREATE TABLE Product(
+    ->     product_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     product_code INT NOT NULL,
+    ->     product_name VARCHAR(50) NOT NULL,
+    ->     product_type VARCHAR(50) NOT NULL,
+    ->     product_description VARCHAR(100) NOT NULL,
+    ->     product_price FLOAT NOT NULL,
+    ->     product_status BOOL NOT NULL,
+    ->     product_quantity INT  NOT NULL,
+    -> color_id INT NOT NULL,
+    -> category_id INT NOT NULL,
+    -> size_id INT NOT NULL,
+    -> FOREIGN KEY (color_id) REFERENCES Color(color_id),
+//Llave foranea que hará referencia a lo almacenado en la tabla Color y el campo color_id
+    -> FOREIGN KEY (category_id) REFERENCES Category(category_id),
+//Llave foranea que hará referencia a lo almacenado en la tabla Category y el campo category_id
+    -> FOREIGN KEY (size_id) REFERENCES Size(size_id));
+//Llave foranea que hará referencia a lo almacenado en la tabla Size y el campo size_id
+
+
+//Verificacion de tablas creadas
+mysql> SHOW TABLES;
++--------------------------------+
+| Tables_in_Inventory_Management |
++--------------------------------+
+| Category                       |
+| Color                          |
+| Product                        |
+| Size                           |
++--------------------------------+
+4 rows in set (0.00 sec)
+
+//Verficacion de campos de la tabla Category
+
+mysql> DESCRIBE Category;
++-----------------------+--------------+------+-----+---------+----------------+
+| Field                 | Type         | Null | Key | Default | Extra          |
++-----------------------+--------------+------+-----+---------+----------------+
+| category_id           | int          | NO   | PRI | NULL    | auto_increment |
+| main_category         | varchar(50)  | NO   |     | NULL    |                |
+| category_name         | varchar(50)  | NO   |     | NULL    |                |
+| aditional_information | varchar(100) | NO   |     | NULL    |                |
+| category_status       | tinyint(1)   | NO   |     | NULL    |                |
++-----------------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+
+//Verficacion de campos de la tabla Color
+mysql> DESCRIBE Color;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| color_id          | int          | NO   | PRI | NULL    | auto_increment |
+| color_code        | int          | NO   |     | NULL    |                |
+| color_name        | varchar(50)  | NO   |     | NULL    |                |
+| color_type        | varchar(50)  | NO   |     | NULL    |                |
+| color_description | varchar(100) | NO   |     | NULL    |                |
+| color_quantity    | int          | NO   |     | NULL    |                |
+| color_status      | tinyint(1)   | NO   |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+//Verficacion de campos de la tabla Product
+mysql> DESCRIBE Product;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| product_id          | int          | NO   | PRI | NULL    | auto_increment |
+| product_code        | int          | NO   |     | NULL    |                |
+| product_name        | varchar(50)  | NO   |     | NULL    |                |
+| product_type        | varchar(50)  | NO   |     | NULL    |                |
+| product_description | varchar(100) | NO   |     | NULL    |                |
+| product_price       | float        | NO   |     | NULL    |                |
+| product_status      | tinyint(1)   | NO   |     | NULL    |                |
+| product_quantity    | int          | NO   |     | NULL    |                |
+| color_id            | int          | NO   | MUL | NULL    |                |
+| category_id         | int          | NO   | MUL | NULL    |                |
+| size_id             | int          | NO   | MUL | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+//Verficacion de campos de la tabla Size
+mysql> DESCRIBE Size;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| size_id       | int         | NO   | PRI | NULL    | auto_increment |
+| size_code     | int         | NO   |     | NULL    |                |
+| ranking       | varchar(50) | NO   |     | NULL    |                |
+| size_type     | varchar(50) | NO   |     | NULL    |                |
+| size_status   | tinyint(1)  | NO   |     | NULL    |                |
+| size_quantity | int         | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+mysql> INSERT INTO Color (color_code, color_name, color_type, color_description, color_quantity, color_status)
+    -> VALUES
+    -> (1, 'Negro', 'Neutral', 'Color básico y versátil que combina con todo', 100, 1),
+    -> (2, 'Blanco', 'Neutral', 'Color limpio y clásico', 120, 1),
+    -> (3, 'Azul Marino', 'Azul', 'Azul oscuro y elegante', 80, 1),
+    -> (4, 'Gris', 'Neutral', 'Color neutro ideal para combinar', 90, 1),
+    -> (5, 'Rojo', 'Rojo', 'Color llamativo y vibrante', 70, 1);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Category (main_category, category_name, aditional_information, category_status)
+    -> VALUES
+    -> ('Ropa', 'Camisetas', 'Camisetas de algodón para hombres y mujeres', 1),
+    -> ('Ropa', 'Pantalones', 'Vaqueros y pantalones casuales para todos los géneros', 1),
+    -> ('Ropa', 'Vestidos', 'Vestidos elegantes y casuales para mujeres', 1),
+    -> ('Zapatillas', 'Zapatillas Deportivas', 'Zapatillas para correr y hacer ejercicio', 1),
+    -> ('Zapatillas', 'Zapatillas Casuales', 'Zapatillas informales para el día a día', 1);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Size (size_code, ranking, size_type, size_status, size_quantity)
+    -> VALUES
+    -> (1, 'XS', 'Ropa', 1, 50),
+    -> (2, 'S', 'Ropa', 1, 100),
+    -> (3, 'M', 'Ropa', 1, 120),
+    -> (4, 'L', 'Ropa', 1, 90),
+    -> (5, 'XL', 'Ropa', 1, 80),
+    -> (6, '37', 'Zapatillas', 1, 70),
+    -> (7, '38', 'Zapatillas', 1, 110),
+    -> (8, '39', 'Zapatillas', 1, 130),
+    -> (9, '40', 'Zapatillas', 1, 90),
+    -> (10, '41', 'Zapatillas', 1, 100);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Product (product_code, product_name, product_type, product_description, product_price, product_status, product_quantity, color_id, category_id, size_id)
+    -> VALUES
+    -> (1001, 'Camiseta de algodón', 'Camiseta', 'Camiseta básica de algodón', 19.99, 1, 50, 1, 1, 1),
+    -> (1002, 'Jeans Slim Fit', 'Pantalón', 'Jeans ajustados para hombres', 39.99, 1, 80, 4, 2, 3),
+    -> (1003, 'Vestido Floral', 'Vestido', 'Vestido estampado floral para mujeres', 49.99, 1, 60, 5, 3, 3),
+    -> (1004, 'Zapatillas para Correr', 'Zapatillas Deportivas', 'Zapatillas para correr con tecnología de amortiguación', 79.99, 1, 70, 2, 4, 7),
+    -> (1005, 'Zapatillas Casual', 'Zapatillas Casuales', 'Zapatillas informales para el uso diario', 59.99, 1, 90, 1, 5, 9);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+----------------------------------------------------------------------------------------------------------------
+Parte I
+Autenticacion:
+id primary key
+user_name text
+password text
+token int
+user_agent text
+
+usuario:
+id primary key
+name text
+last_name text
+user_name text
+token int
+password text
+city text
+gender text
+civil_status text
+enterprise text
+direction text
+type text
+
+tipos prueba:
+reference text primary key
+name text
+description text
+date_entry date
+status boolean
+
+pago:
+id primary key
+company_name text
+name text
+surname text
+vat_number int not null
+billing address text not null
+city text not null
+postal_code int
+country text
+type_card text not null
+card number int not null
+experation_Date date not null
+security code int not null
+
+
+-- creacion de la base de datos
+-- CREATE DATABASE Pixel_S360;
+-- USE Pixel_S360;
+
+-- creacion de la tabla users
+-- CREATE TABLE users (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+--     first_name VARCHAR(50) NOT NULL,
+--     last_name VARCHAR(50) NOT NULL,
+--     user_name VARCHAR(50) NOT NULL,
+--     token VARCHAR(50) NOT NULL,
+--     pwd VARCHAR(50) NOT NULL,
+--     city VARCHAR(50) NOT NULL,
+--     gender VARCHAR(50) NOT NULL,
+--     civil_status VARCHAR(50) NOT NULL,
+--     type_enterprise VARCHAR(50) NOT NULL,
+--     direction VARCHAR(50) NOT NULL,
+--     type_user VARCHAR(50)  NOT NULL
+-- );
+
+-- creacion de la tabla authentication
+-- CREATE TABLE authentication(
+-- id_user INT AUTO_INCREMENT PRIMARY KEY,
+-- id INT NOT NULL,
+--     FOREIGN KEY (id) REFERENCES users(id)
+-- );
+
+-- creacion de la tabla type_test
+-- CREATE TABLE type_test (
+-- rfcs INT PRIMARY KEY,
+-- name_test VARCHAR(50)  NOT NULL,
+-- descriptions VARCHAR(120),
+-- date_entry DATE NOT NULL,
+-- status_test BOOLEAN NOT NULL
+-- );
+
+-- creacion de la tabla payment
+-- CREATE TABLE payment(
+-- id INT PRIMARY KEY,
+-- company_name VARCHAR(50),
+-- first_name VARCHAR(50),
+-- surname VARCHAR(50),
+-- vat_number INT NOT NULL,
+-- billing_address VARCHAR(120) NOT NULL,
+-- city VARCHAR(120)  NOT NULL,
+-- postal_code INT,
+-- country VARCHAR(50)  NOT NULL,
+-- type_card VARCHAR(50)  NOT NULL,
+-- card INT NOT NULL,
+-- experation_date DATE NOT NULL,
+-- security_code INT NOT NULL
+-- );
+
+-- Se insertan 10 registros a la tabla users
+INSERT INTO users (first_name, last_name, user_name, token, pwd, city, gender, civil_status, type_enterprise, direction, type_user)
+VALUES
+('John', 'Doe', 'john.doe', 'token123', 'password123', 'New York', 'Male', 'Single', 'private', '123 Main St', 'Customer'),
+('Jane', 'Smith', 'jane.smith', 'token456', 'password456', 'Los Angeles', 'Female', 'Married', 'public', '456 Oak St', 'Customer'),
+('Bob', 'Johnson', 'bob.johnson', 'token789', 'password789', 'Chicago', 'Male', 'Divorced', 'public', '789 Pine St', 'Customer'),
+('Alice', 'Williams', 'alice.williams', 'token101', 'password101', 'San Francisco', 'Female', 'Single', 'private', '101 Market St', 'Customer'),
+('Michael', 'Brown', 'michael.brown', 'token202', 'password202', 'Seattle', 'Male', 'Married', 'public', '202 Broad St', 'Execute'),
+('Eva', 'Garcia', 'eva.garcia', 'token303', 'password303', 'Miami', 'Female', 'Divorced', 'public', '303 Ocean Ave', 'Manager'),
+('Chris', 'Taylor', 'chris.taylor', 'token404', 'password404', 'Austin', 'Male', 'Single', 'private', '404 Tech St', 'Administrator'),
+('Sophia', 'Lee', 'sophia.lee', 'token505', 'password505', 'Denver', 'Female', 'Married', 'public', '505 Data Blvd', 'Customer'),
+('David', 'Martinez', 'david.martinez', 'token606', 'password606', 'Phoenix', 'Male', 'Divorced', 'private', '606 Quantum St', 'Administrator'),
+('Olivia', 'Chen', 'olivia.chen', 'token707', 'password707', 'Atlanta', 'Female', 'Single', 'public', '707 Future Ave', 'Customer');
+
+
+-- Se insertan 10 registros a la tabla type_test
+-- INSERT INTO type_test (rfcs, name_test, descriptions, date_entry, status_test)
+-- VALUES
+-- (101, 'Acknowledgment', 'This process focuses on obtaining data without affecting the platform', '2024-02-29', true),
+-- (102, 'Vulnerability analysis', 'This analysis informs the planning and execution of specific actions to strengthen platform security', '2024-02-28', false),
+-- (103, 'Exploitation', 'Controlled attacks are carried out to take advantage of security weaknesses', '2024-03-01', true),
+-- (104, 'Privilege escalation or post exploitation', 'The objective is to simulate the progress of a real attacker after gaining initial access', '2024-03-02', false)
+
+-- Se insertan 10 registros a la tabla payment
+-- INSERT INTO payment (id, company_name, first_name, surname, vat_number, billing_address, city, postal_code, country, type_card, card, experation_date, security_code)
+-- VALUES
+-- (1, 'Tech Solutions', 'John', 'Doe', 123456789, '123 Main St', 'New York', 10001, 'USA', 'Visa', 1234567890123456, '2025-12-31', 123),
+-- (2, 'Innovative Innovations', 'Jane', 'Smith', 987654321, '456 Oak St', 'Los Angeles', 90001, 'USA', 'MasterCard', 9876543210987654, '2025-11-30', 456),
+-- (3, 'Data Systems', 'Bob', 'Johnson', 456789012, '789 Pine St', 'Chicago', 60601, 'USA', 'American Express', 4567890123456789, '2025-10-31', 789),
+-- (4, 'Tech Innovators', 'Alice', 'Williams', 789012345, '101 Market St', 'San Francisco', 94105, 'USA', 'Visa', 7890123456789012, '2025-09-30', 101),
+-- (5, 'Cloud Solutions', 'Michael', 'Brown', 234567890, '202 Broad St', 'Seattle', 98101, 'USA', 'MasterCard', 2345678901234567, '2025-08-31', 202),
+-- (6, 'Digital Services', 'Eva', 'Garcia', 890123456, '303 Ocean Ave', 'Miami', 33101, 'USA', 'American Express', 8901234567890123, '2025-07-31', 303),
+-- (7, 'Innovation Hub', 'Chris', 'Taylor', 567890123, '404 Tech St', 'Austin', 78701, 'USA', 'Visa', 5678901234567890, '2025-06-30', 404),
+-- (8, 'Smart Systems', 'Sophia', 'Lee', 234567890, '505 Data Blvd', 'Denver', 80202, 'USA', 'MasterCard', 2345678901234567, '2025-05-31', 505),
+-- (9, 'Quantum Technologies', 'David', 'Martinez', 678901234, '606 Quantum St', 'Phoenix', 85001, 'USA', 'American Express', 6789012345678901, '2025-04-30', 606),
+-- (10, 'Future Solutions', 'Olivia', 'Chen', 345678901, '707 Future Ave', 'Atlanta', 30301, 'USA', 'Visa', 3456789012345678, '2025-03-31', 707);
+
+-- Se modifico el tipo de variable para el campo card porque los datos para el tamaño de la tarjeta eran muy grandes
+-- ALTER TABLE payment MODIFY card BIGINT NOT NULL;
+
+-- SELECT * FROM users
+
+
+-----------------------------------------------------------------------------------------------------------------
+Parte II
+Size:
+	size_id
+	size_code
+	ranking
+	size_type
+	size_status
+	size_quantity
+
+Product:
+	product_id
+	product_code
+	product_name
+	aditional_information
+	product_price
+	product_status
+	product_quantity
+
+Color:
+	color_id
+	color_code
+	color_name
+	color_type
+	color_description
+	color_quantity
+	color_status
+
+Category:
+	category_id
+	main_category
+	category_name
+	aditional_information
+
+
+
+// Creación de la base de datos
+mysql> CREATE DATABASE Inventory_Management;
+
+// Acceso a la base de datos recien creada
+mysql> Use Inventory_Management;
+
+
+// Creacion de la tabla Tamaño
+mysql> CREATE TABLE Size(
+    -> size_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> size_code INT NOT NULL,
+    -> ranking VARCHAR(50) NOT NULL,
+    -> size_type VARCHAR(50) NOT NULL,
+    -> size_status BOOL NOT NULL,
+    -> size_quantity INT NOT NULL)
+    -> ;
+Query OK, 0 rows affected (0.09 sec)
+
+
+// Verificacion de la creacion de la tabla
+mysql> SHOW TABLES;
++--------------------------------+
+| Tables_in_Inventory_Management |
++--------------------------------+
+| Size                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+// Creacion de la tabla Color
+mysql>
+CREATE TABLE Color( color_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> color_code INT NOT NULL,
+    -> color_name VARCHAR(50) NOT NULL,
+    -> color_type VARCHAR(50) NOT NULL,
+    -> color_description VARCHAR(100) NOT NULL,
+    -> color_quantity INT NOT NULL,
+    -> color_status BOOL NOT NULL);
+
+// Creacion de la tabla Categorias
+
+mysql> CREATE TABLE Category(
+    -> category_id INT PRIMARY KEY AUTO_INCREMENT,
+    -> main_category VARCHAR(50) NOT NULL,
+    -> category_name VARCHAR(50) NOT NULL,
+    -> aditional_information VARCHAR(100) NOT NULL,
+    -> category_status BOOL);
+Query OK, 0 rows affected (0.07 sec)
+
+// Creacion de la tabla Producto
+mysql> CREATE TABLE Product(
+    ->     product_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     product_code INT NOT NULL,
+    ->     product_name VARCHAR(50) NOT NULL,
+    ->     product_type VARCHAR(50) NOT NULL,
+    ->     product_description VARCHAR(100) NOT NULL,
+    ->     product_price FLOAT NOT NULL,
+    ->     product_status BOOL NOT NULL,
+    ->     product_quantity INT  NOT NULL,
+    -> color_id INT NOT NULL,
+    -> category_id INT NOT NULL,
+    -> size_id INT NOT NULL,
+    -> FOREIGN KEY (color_id) REFERENCES Color(color_id),
+//Llave foranea que hará referencia a lo almacenado en la tabla Color y el campo color_id
+    -> FOREIGN KEY (category_id) REFERENCES Category(category_id),
+//Llave foranea que hará referencia a lo almacenado en la tabla Category y el campo category_id
+    -> FOREIGN KEY (size_id) REFERENCES Size(size_id));
+//Llave foranea que hará referencia a lo almacenado en la tabla Size y el campo size_id
+
+
+//Verificacion de tablas creadas
+mysql> SHOW TABLES;
++--------------------------------+
+| Tables_in_Inventory_Management |
++--------------------------------+
+| Category                       |
+| Color                          |
+| Product                        |
+| Size                           |
++--------------------------------+
+4 rows in set (0.00 sec)
+
+//Verficacion de campos de la tabla Category
+
+mysql> DESCRIBE Category;
++-----------------------+--------------+------+-----+---------+----------------+
+| Field                 | Type         | Null | Key | Default | Extra          |
++-----------------------+--------------+------+-----+---------+----------------+
+| category_id           | int          | NO   | PRI | NULL    | auto_increment |
+| main_category         | varchar(50)  | NO   |     | NULL    |                |
+| category_name         | varchar(50)  | NO   |     | NULL    |                |
+| aditional_information | varchar(100) | NO   |     | NULL    |                |
+| category_status       | tinyint(1)   | NO   |     | NULL    |                |
++-----------------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+
+//Verficacion de campos de la tabla Color
+mysql> DESCRIBE Color;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| color_id          | int          | NO   | PRI | NULL    | auto_increment |
+| color_code        | int          | NO   |     | NULL    |                |
+| color_name        | varchar(50)  | NO   |     | NULL    |                |
+| color_type        | varchar(50)  | NO   |     | NULL    |                |
+| color_description | varchar(100) | NO   |     | NULL    |                |
+| color_quantity    | int          | NO   |     | NULL    |                |
+| color_status      | tinyint(1)   | NO   |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+//Verficacion de campos de la tabla Product
+mysql> DESCRIBE Product;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| product_id          | int          | NO   | PRI | NULL    | auto_increment |
+| product_code        | int          | NO   |     | NULL    |                |
+| product_name        | varchar(50)  | NO   |     | NULL    |                |
+| product_type        | varchar(50)  | NO   |     | NULL    |                |
+| product_description | varchar(100) | NO   |     | NULL    |                |
+| product_price       | float        | NO   |     | NULL    |                |
+| product_status      | tinyint(1)   | NO   |     | NULL    |                |
+| product_quantity    | int          | NO   |     | NULL    |                |
+| color_id            | int          | NO   | MUL | NULL    |                |
+| category_id         | int          | NO   | MUL | NULL    |                |
+| size_id             | int          | NO   | MUL | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+//Verficacion de campos de la tabla Size
+mysql> DESCRIBE Size;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| size_id       | int         | NO   | PRI | NULL    | auto_increment |
+| size_code     | int         | NO   |     | NULL    |                |
+| ranking       | varchar(50) | NO   |     | NULL    |                |
+| size_type     | varchar(50) | NO   |     | NULL    |                |
+| size_status   | tinyint(1)  | NO   |     | NULL    |                |
+| size_quantity | int         | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+mysql> INSERT INTO Color (color_code, color_name, color_type, color_description, color_quantity, color_status)
+    -> VALUES
+    -> (1, 'Negro', 'Neutral', 'Color básico y versátil que combina con todo', 100, 1),
+    -> (2, 'Blanco', 'Neutral', 'Color limpio y clásico', 120, 1),
+    -> (3, 'Azul Marino', 'Azul', 'Azul oscuro y elegante', 80, 1),
+    -> (4, 'Gris', 'Neutral', 'Color neutro ideal para combinar', 90, 1),
+    -> (5, 'Rojo', 'Rojo', 'Color llamativo y vibrante', 70, 1);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Category (main_category, category_name, aditional_information, category_status)
+    -> VALUES
+    -> ('Ropa', 'Camisetas', 'Camisetas de algodón para hombres y mujeres', 1),
+    -> ('Ropa', 'Pantalones', 'Vaqueros y pantalones casuales para todos los géneros', 1),
+    -> ('Ropa', 'Vestidos', 'Vestidos elegantes y casuales para mujeres', 1),
+    -> ('Zapatillas', 'Zapatillas Deportivas', 'Zapatillas para correr y hacer ejercicio', 1),
+    -> ('Zapatillas', 'Zapatillas Casuales', 'Zapatillas informales para el día a día', 1);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Size (size_code, ranking, size_type, size_status, size_quantity)
+    -> VALUES
+    -> (1, 'XS', 'Ropa', 1, 50),
+    -> (2, 'S', 'Ropa', 1, 100),
+    -> (3, 'M', 'Ropa', 1, 120),
+    -> (4, 'L', 'Ropa', 1, 90),
+    -> (5, 'XL', 'Ropa', 1, 80),
+    -> (6, '37', 'Zapatillas', 1, 70),
+    -> (7, '38', 'Zapatillas', 1, 110),
+    -> (8, '39', 'Zapatillas', 1, 130),
+    -> (9, '40', 'Zapatillas', 1, 90),
+    -> (10, '41', 'Zapatillas', 1, 100);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Product (product_code, product_name, product_type, product_description, product_price, product_status, product_quantity, color_id, category_id, size_id)
+    -> VALUES
+    -> (1001, 'Camiseta de algodón', 'Camiseta', 'Camiseta básica de algodón', 19.99, 1, 50, 1, 1, 1),
+    -> (1002, 'Jeans Slim Fit', 'Pantalón', 'Jeans ajustados para hombres', 39.99, 1, 80, 4, 2, 3),
+    -> (1003, 'Vestido Floral', 'Vestido', 'Vestido estampado floral para mujeres', 49.99, 1, 60, 5, 3, 3),
+    -> (1004, 'Zapatillas para Correr', 'Zapatillas Deportivas', 'Zapatillas para correr con tecnología de amortiguación', 79.99, 1, 70, 2, 4, 7),
+    -> (1005, 'Zapatillas Casual', 'Zapatillas Casuales', 'Zapatillas informales para el uso diario', 59.99, 1, 90, 1, 5, 9);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+Descargas/bdparcial1.png
+
+
+
+
